@@ -9,18 +9,18 @@ from geodatasets import get_path
 
  
 st.title('Dashboard E-Commerce Public Dataset')
-orders_category = pd.read_csv('../data/orders_category_filtered.csv')
+orders_category = pd.read_csv('orders_category_filtered.csv')
 orders_category['order_purchase_timestamp'] = pd.to_datetime(orders_category['order_purchase_timestamp'])
 orders_category.info()
 
-orders_payment = pd.read_csv('../data/orders_payment.csv')
+orders_payment = pd.read_csv('orders_payment.csv')
 orders_payment['order_purchase_timestamp'] = pd.to_datetime(orders_payment['order_purchase_timestamp'])
 orders_payment.info()
 
-rfm_analysis = pd.read_csv('../data/rfm_analysis.csv')
+rfm_analysis = pd.read_csv('rfm_analysis.csv')
 rfm_analysis.info()
 
-geospatial_analysis = pd.read_csv('../data/geospatial_analysis.csv')
+geospatial_analysis = pd.read_csv('geospatial_analysis.csv')
 
  
 with st.sidebar:
@@ -138,7 +138,7 @@ with st.container():
     )
 
     # Baca peta dunia dari GeoPandas datasets
-    shapefile_path = "../data/naturalearth_land/ne_110m_land.shp"
+    shapefile_path = "naturalearth_land/ne_110m_land.shp"
     world = gpd.read_file(shapefile_path)
 
     # Membatasi peta hanya untuk Brazil (koordinat untuk clip)
