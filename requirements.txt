@@ -1,0 +1,7 @@
+streamlit==1.24.1
+pandas>2.0
+numpy<= 1.25.1
+matplotlib==3.9.2
+seaborn==0.13.2
+geopandas==1.0.1
+geodatasets==2024.8.0
