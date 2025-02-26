@@ -28,13 +28,18 @@ with st.sidebar:
     st.image("https://dicoding-web-img.sgp1.digitaloceanspaces.com/original/jobs/dos:company_logo_dicoding_indonesia_050423140704.jpg")
     
     st.subheader("Name: Rafli Muhamad Ridhwan")
+    
+    selected_quarters = st.multiselect("Quartal", options=[1, 2, 3, 4], default=[1, 2, 3, 4])
+    
+filtered_orders = orders_category[orders_category['order_purchase_timestamp'].dt.quarter.isin(selected_quarters)]
+filtered_payment = orders_payment[orders_payment['order_purchase_timestamp'].dt.quarter.isin(selected_quarters)]
 
 with st.container():
      # Group data by year and quarter
-    df_grouped = orders_category.groupby([
+    df_grouped = filtered_orders.groupby([
         orders_category['order_purchase_timestamp'].dt.year,
         orders_category['order_purchase_timestamp'].dt.quarter
-    ])['order_id'].count().unstack()
+    ])['order_id'].count().unstack() 
 
     # Buat clustered bar chart dengan gap
     fig, ax = plt.subplots(figsize=(10, 6))
@@ -55,13 +60,13 @@ with st.container():
     plt.subplots_adjust(wspace=0.2)
 
     # Tampilkan grafik di Streamlit
-    st.pyplot(fig)
-   
+    st.pyplot(fig)   
+
     with st.expander("See explanation"):
         st.write("Dapat dilihat pada grafik perbandingan jumlah pesanan pada tahun 2017 dan 2018 pada setiap kuartal, bahwa jumlah pesananan pada tahun berikutnya tepatnya di 2018 mengalami peningkatan dibandingkan tahun sebelumnya")
  
     # Filter data untuk tahun 2018 dan hapus tipe pembayaran 'not_defined'
-    df_payment_2018 = orders_payment[
+    df_payment_2018 = filtered_payment[
         (orders_payment['order_purchase_timestamp'].dt.year == 2018) &
         (orders_payment['payment_type'] != 'not_defined')
     ]
